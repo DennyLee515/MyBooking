@@ -13,5 +13,13 @@ namespace MyBooking.API.Services
         bool TouristRouteExists(Guid touristRouteId);
         IEnumerable<TouristRoutePic>GetPicsByTouristRouteId(Guid touristRouteId);
         TouristRoutePic GetPic(int pictureId);
+        IEnumerable<TouristRoute> GetTouristRoutesByIDs(IEnumerable<Guid> ids);
+        void AddTouristRoute(TouristRoute touristRoute);
+        void AddTouristRoutePic(Guid touristRouteId, TouristRoutePic touristRoutePic);
+        void DeleteTouristRoute(TouristRoute touristRoute);
+        void DeleteTouristRoutes(IEnumerable<TouristRoute> touristRoutes);
+        void DeleteTouristRoutePicture(TouristRoutePic touristRoutePic);
+        bool Save();
+
     }
 }

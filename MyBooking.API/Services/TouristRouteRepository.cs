@@ -16,6 +16,47 @@ namespace MyBooking.API.Services
             _context = context;
         }
 
+        public void AddTouristRoute(TouristRoute touristRoute)
+        {
+            if (touristRoute == null)
+            {
+                throw new ArgumentNullException(nameof(touristRoute));
+            }
+            _context.TouristRoutes.Add(touristRoute);
+        }
+
+        public void AddTouristRoutePic(Guid touristRouteId, TouristRoutePic touristRoutePic)
+        {
+            if (touristRouteId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(touristRouteId));
+
+            }
+
+            if(touristRoutePic == null)
+            {
+                throw new ArgumentNullException(nameof(touristRoutePic));
+            }
+
+            touristRoutePic.TouristRouteId = touristRouteId;
+            _context.TouristRoutePics.Add(touristRoutePic);
+        }
+
+        public void DeleteTouristRoute(TouristRoute touristRoute)
+        {
+            _context.TouristRoutes.Remove(touristRoute);
+        }
+
+        public void DeleteTouristRoutePicture(TouristRoutePic touristRoutePic)
+        {
+            _context.TouristRoutePics.Remove(touristRoutePic);
+        }
+
+        public void DeleteTouristRoutes(IEnumerable<TouristRoute> touristRoutes)
+        {
+            _context.TouristRoutes.RemoveRange(touristRoutes);
+        }
+
         public TouristRoutePic GetPic(int pictureId)
         {
             return _context.TouristRoutePics.Where(p => p.Id == pictureId).FirstOrDefault();
@@ -41,7 +82,7 @@ namespace MyBooking.API.Services
                 keyword = keyword.Trim();
                 result = result.Where(t => t.Title.Contains(keyword));
             }
-            if(ratingValue >= 0)
+            if (ratingValue >= 0)
             {
                 result = ratingOperator switch
                 {
@@ -53,9 +94,19 @@ namespace MyBooking.API.Services
             return result.ToList();
         }
 
+        public IEnumerable<TouristRoute> GetTouristRoutesByIDs(IEnumerable<Guid> ids)
+        {
+            return _context.TouristRoutes.Where(t => ids.Contains(t.Id)).ToList();
+        }
+
+        public bool Save()
+        {
+            return (_context.SaveChanges() >= 0);
+        }
+
         public bool TouristRouteExists(Guid touristRouteId)
         {
-            return _context.TouristRoutes.Any(t=> t.Id ==touristRouteId);
+            return _context.TouristRoutes.Any(t => t.Id == touristRouteId);
         }
     }
 }

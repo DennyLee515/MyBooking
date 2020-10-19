@@ -22,21 +22,21 @@ namespace MyBooking.API.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           /* modelBuilder.Entity<TouristRoute>().HasData(new TouristRoute()
-            {
-                Id = Guid.NewGuid(),
-                Title="TestTitle",
-                Description="description",
-                OriginalPrice=0,
-                CreateTime =DateTime.UtcNow
-            }) ;*/
-            var touristRouteJsonData = File.ReadAllText(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)+@"/Database/touristRouteMockData.json");
+            /* modelBuilder.Entity<TouristRoute>().HasData(new TouristRoute()
+             {
+                 Id = Guid.NewGuid(),
+                 Title="TestTitle",
+                 Description="description",
+                 OriginalPrice=0,
+                 CreateTime =DateTime.UtcNow
+             }) ;*/
+            var touristRouteJsonData = File.ReadAllText(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"/Database/touristRoutesMockData.json");
             IList<TouristRoute> touristRoutes = JsonConvert.DeserializeObject<IList<TouristRoute>>(touristRouteJsonData);
             modelBuilder.Entity<TouristRoute>().HasData(touristRoutes);
 
             var touristRoutePicJsonData = File.ReadAllText(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"/Database/touristRoutePicturesMockData.json");
-            IList<TouristRoute> touristRoutePics = JsonConvert.DeserializeObject<IList<TouristRoute>>(touristRoutePicJsonData);
-            modelBuilder.Entity<TouristRoute>().HasData(touristRoutePics);
+            IList<TouristRoutePic> touristRoutePics = JsonConvert.DeserializeObject<IList<TouristRoutePic>>(touristRoutePicJsonData);
+            modelBuilder.Entity<TouristRoutePic>().HasData(touristRoutePics);
 
             base.OnModelCreating(modelBuilder);
         }
