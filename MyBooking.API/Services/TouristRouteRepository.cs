@@ -57,22 +57,22 @@ namespace MyBooking.API.Services
             _context.TouristRoutes.RemoveRange(touristRoutes);
         }
 
-        public TouristRoutePic GetPic(int pictureId)
+        public async Task<TouristRoutePic> GetPicAsync(int pictureId)
         {
-            return _context.TouristRoutePics.Where(p => p.Id == pictureId).FirstOrDefault();
+            return await _context.TouristRoutePics.Where(p => p.Id == pictureId).FirstOrDefaultAsync();
         }
 
-        public IEnumerable<TouristRoutePic> GetPicsByTouristRouteId(Guid touristRouteId)
+        public async Task<IEnumerable<TouristRoutePic>> GetPicsByTouristRouteIdAsync(Guid touristRouteId)
         {
-            return _context.TouristRoutePics.Where(p => p.TouristRouteId == touristRouteId).ToList();
+            return await _context.TouristRoutePics.Where(p => p.TouristRouteId == touristRouteId).ToListAsync();
         }
 
-        public TouristRoute GetTouristRoute(Guid touristRouteId)
+        public async Task<TouristRoute> GetTouristRouteAsync(Guid touristRouteId)
         {
-            return _context.TouristRoutes.Include(t => t.TouristRoutePics).FirstOrDefault(n => n.Id == touristRouteId);
+            return await _context.TouristRoutes.Include(t => t.TouristRoutePics).FirstOrDefaultAsync(n => n.Id == touristRouteId);
         }
 
-        public IEnumerable<TouristRoute> GetTouristRoutes(string keyword, string ratingOperator, int? ratingValue)
+        public async Task<IEnumerable<TouristRoute>> GetTouristRoutesAsync(string keyword, string ratingOperator, int? ratingValue)
         {
             IQueryable<TouristRoute> result = _context
                 .TouristRoutes
@@ -91,22 +91,22 @@ namespace MyBooking.API.Services
                     _ => result.Where(t => t.Rating == ratingValue),
                 };
             }
-            return result.ToList();
+            return await result.ToListAsync();
         }
 
-        public IEnumerable<TouristRoute> GetTouristRoutesByIDs(IEnumerable<Guid> ids)
+        public async Task<IEnumerable<TouristRoute>> GetTouristRoutesByIDsAsync(IEnumerable<Guid> ids)
         {
-            return _context.TouristRoutes.Where(t => ids.Contains(t.Id)).ToList();
+            return await _context.TouristRoutes.Where(t => ids.Contains(t.Id)).ToListAsync();
         }
 
-        public bool Save()
+        public async Task<bool> SaveAsync()
         {
-            return (_context.SaveChanges() >= 0);
+            return (await _context.SaveChangesAsync() >= 0);
         }
 
-        public bool TouristRouteExists(Guid touristRouteId)
+        public async Task<bool> TouristRouteExistsAsync(Guid touristRouteId)
         {
-            return _context.TouristRoutes.Any(t => t.Id == touristRouteId);
+            return await _context.TouristRoutes.AnyAsync(t => t.Id == touristRouteId);
         }
     }
 }

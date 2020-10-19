@@ -8,18 +8,18 @@ namespace MyBooking.API.Services
 {
     public interface ITouristRouteRepository
     {
-        IEnumerable<TouristRoute> GetTouristRoutes(string keyword, string ratingOperator, int? ratingValue);
-        TouristRoute GetTouristRoute(Guid touristRouteId);
-        bool TouristRouteExists(Guid touristRouteId);
-        IEnumerable<TouristRoutePic>GetPicsByTouristRouteId(Guid touristRouteId);
-        TouristRoutePic GetPic(int pictureId);
-        IEnumerable<TouristRoute> GetTouristRoutesByIDs(IEnumerable<Guid> ids);
+        Task<IEnumerable<TouristRoute>> GetTouristRoutesAsync(string keyword, string ratingOperator, int? ratingValue);
+        Task<TouristRoute> GetTouristRouteAsync(Guid touristRouteId);
+        Task<bool> TouristRouteExistsAsync(Guid touristRouteId);
+        Task<IEnumerable<TouristRoutePic>> GetPicsByTouristRouteIdAsync(Guid touristRouteId);
+        Task<TouristRoutePic> GetPicAsync(int pictureId);
+        Task<IEnumerable<TouristRoute>> GetTouristRoutesByIDsAsync(IEnumerable<Guid> ids);
         void AddTouristRoute(TouristRoute touristRoute);
         void AddTouristRoutePic(Guid touristRouteId, TouristRoutePic touristRoutePic);
         void DeleteTouristRoute(TouristRoute touristRoute);
         void DeleteTouristRoutes(IEnumerable<TouristRoute> touristRoutes);
         void DeleteTouristRoutePicture(TouristRoutePic touristRoutePic);
-        bool Save();
+        Task<bool> SaveAsync();
 
     }
 }
