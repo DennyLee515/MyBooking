@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -43,7 +44,7 @@ namespace MyBooking.API.Controllers
             return Ok(touristRoutesDto);
         }
 
-        //api/touristroutes/{touristRouteId}
+        
         [HttpGet("{touristRouteId}", Name = "GetTouristRouteById")]
         [HttpHead]
         public async Task<IActionResult> GetTouristRouteById(Guid touristRouteId)
@@ -58,6 +59,8 @@ namespace MyBooking.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(AuthenticationSchemes ="Bearer")]
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> CreateTouristRoute([FromBody] TouristRouteCreationDto touristRouteCreationDto)
         {
             var touristRouteModel = _mapper.Map<TouristRoute>(touristRouteCreationDto);
@@ -70,6 +73,7 @@ namespace MyBooking.API.Controllers
                 touristRouteToReturn);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPut("{touristRouteId}")]
         public async Task<IActionResult> UpdateTouristRoute([FromRoute] Guid touristRouteId, [FromBody] TouristRouteUpdateDto touristRouteUpdateDto)
         {
@@ -87,6 +91,7 @@ namespace MyBooking.API.Controllers
             return NoContent();
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPatch("{touristRouteId}")]
         public async Task<IActionResult> PatiallyUpdateTouristRoute([FromRoute]Guid touristRouteId, [FromBody] JsonPatchDocument<TouristRouteUpdateDto> patchDocument)
         {
@@ -108,6 +113,7 @@ namespace MyBooking.API.Controllers
             return NoContent();
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpDelete("{touristRouteId}")]
         public async Task<IActionResult> DeleteTouristRoute([FromRoute] Guid touristRouteId)
         {
@@ -123,6 +129,7 @@ namespace MyBooking.API.Controllers
             return NoContent();
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpDelete("({touristIDs})")]
         public async Task<IActionResult> DeleteTouristRouteByIds([ModelBinder(BinderType =typeof(ArrayModelBinder))][FromRoute] IEnumerable<Guid> touristIDs)
         {

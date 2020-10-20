@@ -62,7 +62,13 @@ E:\Workspace\DotNet Core\MyBooking.API\MyBooking.API\MyBooking.API\bin\Debug\net
 E:\Workspace\DotNet Core\MyBooking.API\MyBooking.API\MyBooking.API\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 E:\Workspace\DotNet Core\MyBooking.API\MyBooking.API\MyBooking.API\obj\Debug\netcoreapp3.1\MyBooking.API.csprojAssemblyReference.cache
 E:\Workspace\DotNet Core\MyBooking.API\MyBooking.API\MyBooking.API\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
-E:\Workspace\DotNet Core\MyBooking.API\MyBooking.API\MyBooking.API\obj\Debug\netcoreapp3.1\MyBooking.API.csproj.CoreCompileInputs.cache
-E:\Workspace\DotNet Core\MyBooking.API\MyBooking.API\MyBooking.API\obj\Debug\netcoreapp3.1\MyBooking.API.MvcApplicationPartsAssemblyInfo.cache
 E:\Workspace\DotNet Core\MyBooking.API\MyBooking.API\MyBooking.API\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 E:\Workspace\DotNet Core\MyBooking.API\MyBooking.API\MyBooking.API\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+E:\Workspace\DotNet Core\MyBooking.API\MyBooking.API\MyBooking.API\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\Workspace\DotNet Core\MyBooking.API\MyBooking.API\MyBooking.API\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.Internal.dll
+E:\Workspace\DotNet Core\MyBooking.API\MyBooking.API\MyBooking.API\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+E:\Workspace\DotNet Core\MyBooking.API\MyBooking.API\MyBooking.API\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+E:\Workspace\DotNet Core\MyBooking.API\MyBooking.API\MyBooking.API\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
+E:\Workspace\DotNet Core\MyBooking.API\MyBooking.API\MyBooking.API\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll
+E:\Workspace\DotNet Core\MyBooking.API\MyBooking.API\MyBooking.API\obj\Debug\netcoreapp3.1\MyBooking.API.csproj.CoreCompileInputs.cache
+E:\Workspace\DotNet Core\MyBooking.API\MyBooking.API\MyBooking.API\obj\Debug\netcoreapp3.1\MyBooking.API.MvcApplicationPartsAssemblyInfo.cache
