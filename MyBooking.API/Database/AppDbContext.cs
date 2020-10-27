@@ -21,6 +21,9 @@ namespace MyBooking.API.Database
 
         public DbSet<TouristRoute> TouristRoutes { get; set; }
         public DbSet<TouristRoutePic> TouristRoutePics { get; set; }
+        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public DbSet<LineItem> LineItems { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

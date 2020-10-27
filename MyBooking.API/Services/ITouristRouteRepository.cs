@@ -19,7 +19,16 @@ namespace MyBooking.API.Services
         void DeleteTouristRoute(TouristRoute touristRoute);
         void DeleteTouristRoutes(IEnumerable<TouristRoute> touristRoutes);
         void DeleteTouristRoutePicture(TouristRoutePic touristRoutePic);
+        Task AddShoppingCartItemAsync(LineItem lineItem);
+        Task CreateShoppingCartAsync(ShoppingCart shoppingCart);
+        Task<ShoppingCart> GetShoppingCartByUserIdAsync(string userId);
+        Task<LineItem> GetShoppingCartItemByItemId(int lineItemId);
+        void DeleteShoppingCartItem(LineItem lineItem);
+        Task<IEnumerable<LineItem>> GetShoppingCartItemsByIdsAsync(IEnumerable<int> ids);
+        void DeleteShoppingCartItems(IEnumerable<LineItem> lineItems);
+        Task AddOrderAsync(Order order);
+        Task<IEnumerable<Order>> GetOrdersByUserId(string userId);
+        Task<Order> GetOrderByOrderId(Guid orderId);
         Task<bool> SaveAsync();
-
     }
 }

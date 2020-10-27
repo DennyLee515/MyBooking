@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using MyBooking.API.Dtos;
 using MyBooking.API.Models;
+using MyBooking.API.Services;
 
 namespace MyBooking.API.Controllers
 {
@@ -23,12 +24,13 @@ namespace MyBooking.API.Controllers
         private readonly IConfiguration _configuration;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-
-        public AuthController(IConfiguration configuration, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        private readonly ITouristRouteRepository _touristRouteRepository;
+        public AuthController(IConfiguration configuration, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ITouristRouteRepository touristRouteRepository)
         {
             _configuration = configuration;
             _userManager = userManager;
             _signInManager = signInManager;
+            _touristRouteRepository = touristRouteRepository;
         }
         [AllowAnonymous]
         [HttpPost("login")]
@@ -97,6 +99,15 @@ namespace MyBooking.API.Controllers
             {
                 return BadRequest();
             }
+
+            // init shopping cart
+            var shoppingCart = new ShoppingCart()
+            {
+                Id = Guid.NewGuid(),
+                UserId = user.Id
+            };
+            await _touristRouteRepository.CreateShoppingCartAsync(shoppingCart);
+            await _touristRouteRepository.SaveAsync();
 
             // return
             return Ok();

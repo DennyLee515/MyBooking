@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyBooking.API.Database;
 
 namespace MyBooking.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201026111434_ShoppingCartMigration")]
+    partial class ShoppingCartMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,7 +51,7 @@ namespace MyBooking.API.Migrations
                         new
                         {
                             Id = "308660dc-ae51-480f-824d-7dca6714c3e2",
-                            ConcurrencyStamp = "fc635a3b-22c9-421d-8c1b-6c443e55ad79",
+                            ConcurrencyStamp = "414ae4f6-80f7-4e90-b5fc-0b2aebce108d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -258,16 +260,16 @@ namespace MyBooking.API.Migrations
                         {
                             Id = "90184155-dee0-40c9-bb1e-b5ed07afc04e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ae059b40-7a68-4d18-a527-ca54ca419a6c",
+                            ConcurrencyStamp = "2b287fe4-b559-4995-9495-439f495f05ee",
                             Email = "admin@mybooking.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MYBOOKING.COM",
                             NormalizedUserName = "ADMIN@MYBOOKING.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAELcGTBMTvho0ivnFbyOG1GXr1mpjW2MKYyvIrRQ7Zj8+xLeCou8BVy9NdGJFm+wAiw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPjbcxKrpWA2OIsblP3e5dTMDZzL8MwwgQGS7zJB817CJUxioP8k7ti22hPaWrLH9g==",
                             PhoneNumber = "123456789",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4d380cf8-a9bd-4064-a384-fc9c83da6a18",
+                            SecurityStamp = "eabc2131-1c40-4620-89a7-3b0d07d307fd",
                             TwoFactorEnabled = false,
                             UserName = "admin@mybooking.com"
                         });
@@ -283,9 +285,6 @@ namespace MyBooking.API.Migrations
                     b.Property<double?>("DiscountPresent")
                         .HasColumnType("float");
 
-                    b.Property<Guid?>("OrderId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<decimal>("OriginalPrice")
                         .HasColumnType("decimal(18,2)");
 
@@ -297,38 +296,11 @@ namespace MyBooking.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderId");
-
                     b.HasIndex("ShoppingCartId");
 
                     b.HasIndex("TouristRouteId");
 
                     b.ToTable("LineItems");
-                });
-
-            modelBuilder.Entity("MyBooking.API.Models.Order", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreateDateUTC")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("State")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TransactionMetadata")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("MyBooking.API.Models.ShoppingCart", b =>
@@ -1128,10 +1100,6 @@ namespace MyBooking.API.Migrations
 
             modelBuilder.Entity("MyBooking.API.Models.LineItem", b =>
                 {
-                    b.HasOne("MyBooking.API.Models.Order", null)
-                        .WithMany("OrderItems")
-                        .HasForeignKey("OrderId");
-
                     b.HasOne("MyBooking.API.Models.ShoppingCart", null)
                         .WithMany("ShoppingCartItems")
                         .HasForeignKey("ShoppingCartId");
@@ -1141,13 +1109,6 @@ namespace MyBooking.API.Migrations
                         .HasForeignKey("TouristRouteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("MyBooking.API.Models.Order", b =>
-                {
-                    b.HasOne("MyBooking.API.Models.ApplicationUser", "User")
-                        .WithMany("Orders")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("MyBooking.API.Models.ShoppingCart", b =>

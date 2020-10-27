@@ -75,6 +75,10 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[12.0.3, )"
+            },
+            "Stateless": {
+              "target": "Package",
+              "version": "[5.1.1, )"
             }
           },
           "imports": [
