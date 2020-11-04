@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyBooking.API.Dtos;
+using MyBooking.API.ResourceParameters;
 using MyBooking.API.Services;
 
 namespace MyBooking.API.Controllers
@@ -29,13 +30,13 @@ namespace MyBooking.API.Controllers
 
         [HttpGet]
         [Authorize(AuthenticationSchemes = "Bearer")]
-        public async Task<IActionResult> GetOrders()
+        public async Task<IActionResult> GetOrders([FromQuery] PaginationResourceParameters paginationResourceParameters)
         {
             // 1. Get current user
             var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             // 2. Get orders using userId
-            var orders = await _touristRouteRepository.GetOrdersByUserId(userId);
+            var orders = await _touristRouteRepository.GetOrdersByUserId(userId, paginationResourceParameters.PageSize, paginationResourceParameters.PageNumber);
 
             // 3. Return
             return Ok(_mapper.Map<IEnumerable<OrderDto>>(orders));
@@ -54,6 +55,6 @@ namespace MyBooking.API.Controllers
             //3. Return
             return Ok(_mapper.Map<OrderDto>(order));
         }
-       
+
     }
 }

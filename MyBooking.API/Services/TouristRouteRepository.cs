@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyBooking.API.Database;
 using MyBooking.API.Models;
+using MyBooking.API.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -90,9 +91,10 @@ namespace MyBooking.API.Services
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<Order>> GetOrdersByUserId(string userId)
+        public async Task<PaginationList<Order>> GetOrdersByUserId(string userId,int pageSize, int pageNumber)
         {
-            return await _context.Orders.Where(order => order.UserId == userId).ToListAsync();
+            IQueryable<Order> result = _context.Orders.Where(order => order.UserId == userId);
+            return await PaginationList<Order>.CreateAsync(pageNumber,pageSize,result);
         }
 
         public async Task<TouristRoutePic> GetPicAsync(int pictureId)
@@ -129,7 +131,7 @@ namespace MyBooking.API.Services
             return await _context.TouristRoutes.Include(t => t.TouristRoutePics).FirstOrDefaultAsync(n => n.Id == touristRouteId);
         }
 
-        public async Task<IEnumerable<TouristRoute>> GetTouristRoutesAsync(string keyword, string ratingOperator, int? ratingValue)
+        public async Task<PaginationList<TouristRoute>> GetTouristRoutesAsync(string keyword, string ratingOperator, int? ratingValue, int pageSize, int pageNumber)
         {
             IQueryable<TouristRoute> result = _context
                 .TouristRoutes
@@ -148,7 +150,8 @@ namespace MyBooking.API.Services
                     _ => result.Where(t => t.Rating == ratingValue),
                 };
             }
-            return await result.ToListAsync();
+
+            return await PaginationList<TouristRoute>.CreateAsync(pageNumber, pageSize, result);
         }
 
         public async Task<IEnumerable<TouristRoute>> GetTouristRoutesByIDsAsync(IEnumerable<Guid> ids)
